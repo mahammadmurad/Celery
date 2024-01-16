@@ -25,6 +25,7 @@ services:
     container_name: celery
     build:
       context: ./_celery
+    command: celery --app=_celery worker -l INFO
     volumes:
       - ./_celery:/Users/Mahammad/app
   
@@ -34,4 +35,17 @@ services:
       - ALLOWED_HOSTS=localhost,127.0.0.1
     depends_on:
       - redis
+      - django
+  
+ celerynew:
+    container_name: celerynew
+    build:
+      context: ./celeryworker
+    command: celery -A celerytask worker --l INFO
+    volumes:
+      - ./celeryworker:/Users/Mahammad/app
+  
+    depends_on:
+      - redis
+      - django
 
