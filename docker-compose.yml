@@ -25,7 +25,7 @@ services:
     container_name: celery
     build:
       context: ./_celery
-    command: celery --app=_celery worker -l INFO
+    command: celery --app=_celery worker -l INFO -Q celery,celery:1,celery:2,celery:3
     volumes:
       - ./_celery:/Users/Mahammad/app
   
@@ -37,15 +37,15 @@ services:
       - redis
       - django
   
- celerynew:
-    container_name: celerynew
-    build:
-      context: ./celeryworker
-    command: celery -A celerytask worker --l INFO
-    volumes:
-      - ./celeryworker:/Users/Mahammad/app
+#  celerynew:
+#     container_name: celerynew
+#     build:
+#       context: ./celeryworker
+#     command: celery -A celerytask worker --l INFO
+#     volumes:
+#       - ./celeryworker:/Users/Mahammad/app
   
-    depends_on:
-      - redis
-      - django
+#     depends_on:
+#       - redis
+#       - django
 
